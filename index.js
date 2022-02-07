@@ -108,29 +108,37 @@ app.get('/movies', (req, res) =>  {
 app.get('/movies/:title', (req, res) => {
     res.json(topMovies.find((movie) =>
     { return movie.title === req.params.title }));
+
+    /*if (movie) {
+        movies = topMovies.filter((obj) => {
+            return obj.title !== req.params.title
+        });
+        res.status(201).send('Movie ' + req.params.title + 'is available')
+        
+    }*/
 });
 
 //returns data about a genre by movie name
 // /movies/title/description/
  app.get('/movies/:title/:genre', (req, res) => {
-    res.json(topMovies.find((movie) => {
-        return movie.genre === req.params.title}));
+    res.json(topMovies.find((movieGenre) => {
+        return movieGenre.genre === req.params.genre}));
 });
 
 
 // returns data about a director (bio, year death) by name
     //movies/description/director
 app.get('/movies/:description/:director', (req, res) => {
-    res.json(topMovies.find((movie) =>
-    {return movie.description === req.params.description }));
+    res.json(topMovies.find((movieDirector) =>
+    {return movieDirector.director === req.params.director }));
 });
 
 // add new user
 //users
 app.post('/users', (req, res) => {
-    let newUSer = req.body;
+    let newUser = req.body;
 
-    if (!newUSer.name) {
+    if (!newUser.name) {
         const message = 'Missing name in request body';
         res.status(400).send(message);
     } else {
@@ -144,8 +152,8 @@ app.post('/users', (req, res) => {
 //allow user to update their user info(Username) .
 //users/user/name/
 app.put('/users/:name', (req, res) => {
-    let user = users.find((user) => {
-        return user.name === req.params.name
+    let user = users.find((userName) => {
+        return userName.name === req.params.name
     });
 
     if (user) {
