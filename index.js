@@ -93,41 +93,36 @@ let topMovies = [
         } 
      }
 
+    ]
 
 //REST and API section
 
 //gets a list of all the movies
 //movies 
 app.get('/movies', (req, res) =>  {
-    res.json(movies);
+    res.json(topMovies);
 });
 
 // gets data about a single movie by title with text on availability
 //movies/title
 app.get('/movies/:title', (req, res) => {
-    let movies = movies.find((movies) => {
-        return movie.title === req.params.title});
-
-        if (movies) {
-            let movieDescription = Object.values(movies.description)
-        } //STUCK!
-
-    
+    res.json(topMovies.find((movie) =>
+    { return movie.title === req.params.title }));
 });
 
 //returns data about a genre by movie name
 // /movies/title/description/
-app.get('/movies/:title/:genre', (req, res) => {
-    res.json(movies.find((movies) => {
-        return movies.title === req.params.title}));
+ app.get('/movies/:title/:genre', (req, res) => {
+    res.json(topMovies.find((movie) => {
+        return movie.genre === req.params.title}));
 });
 
 
 // returns data about a director (bio, year death) by name
-//movies/description/director
+    //movies/description/director
 app.get('/movies/:description/:director', (req, res) => {
-    res.json(movies.find((movies) =>
-    {return movies.description === req.params. description }));
+    res.json(topMovies.find((movie) =>
+    {return movie.description === req.params.description }));
 });
 
 // add new user
@@ -164,7 +159,7 @@ app.put('/users/:name', (req, res) => {
 //adds data for a new favourite movie for users  with a confirmation text
 // /users/favourite movie
 app.put('/users/:favouriteMovies', (req, res) => {
-    let newFavMovie = movies.find((newFavMovie) => {
+    let newFavMovie = topMovies.find((newFavMovie) => {
         return movie.title === req.params.title
     });
 
@@ -182,12 +177,12 @@ app.put('/users/:favouriteMovies', (req, res) => {
 
 // allow users to remove movie by movie title from favourite watch list 
 app.delete('/users/:favouriteMovies/:title', (req, res) => {
-    let delMovie = movies.find((delMovie) => {
+    let delMovie = topMovies.find((delMovie) => {
         return movie.title === req.params.title
     });
 
     if (delMovie) {
-        movies = movies.filter((obj) => {
+        movies = topMovies.filter((obj) => {
             return obj.title !== req.params.title
         });
         res.status(201).send('Formely favourite movie ' + req.params.title + ' was deleted. ');
@@ -201,13 +196,12 @@ app.delete('/users/:id', (req, res) => {
         return user.id === req.params.id
     });
 
-    let (user) {
-        users = users.filter((obj) => {
+    let users = users.filter((obj) => {
             return obj.id !== req.params.id
         });
         res.status(201).send('User ' + req.params.id + ' was deleted. ');
     }
-});
+);
 
 
 // app.use to invoke morgan middleware function
